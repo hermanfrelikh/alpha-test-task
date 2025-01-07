@@ -1,6 +1,7 @@
-export interface Movie {
-  filmId: string;
-  nameRu: string;
+export interface Product {
+  id: number;
+  title: string;
   description: string;
-  posterUrl: string;
+  img: string;
+  favorites: boolean;
 }

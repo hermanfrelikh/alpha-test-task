@@ -3,10 +3,17 @@ import Products from './pages/Products';
 import Product from './pages/Product';
 import Layout from './Layout';
 import { useEffect, useState } from 'react';
-import { Movie } from '../types';
+
+interface Product {
+  id: number;
+  title: string;
+  description: string;
+  img: string;
+  favorites: boolean;
+}
 
 function App() {
-  const [movies, setMovies] = useState<Movie[]>([]);
+  const [products, setProducts] = useState<Product[]>([]);
 
   useEffect(() => {
     const fetchMovies = async () => {
@@ -22,8 +29,17 @@ function App() {
           },
         );
         const data = await response.json();
-        setMovies(data.films);
-        // console.log(data.films);
+
+        const newProducts = data.films.map((movie: any) => ({
+          id: movie.filmId,
+          title: movie.nameRu || movie.nameEn || 'Untitled',
+          description:
+            'Lorem ipsum dolor sit amet, consectetur adipiscing elit.',
+          img: movie.posterUrl,
+          favorites: false,
+        }));
+
+        setProducts(newProducts);
       } catch (error) {
         console.error('Error fetching movies:', error);
       }
@@ -32,12 +48,20 @@ function App() {
     fetchMovies();
   }, []);
 
+  console.log(products);
+
   return (
     <Routes>
       <Route path="/" element={<Layout />}>
         <Route path="/" element={<Navigate to="/products" replace />} />
-        <Route path="/products" element={<Products movies={movies} />} />
-        <Route path="/products/:id" element={<Product />} />
+        <Route path="/products" element={<Products products={products} />} />
+        {products.map((product) => (
+          <Route
+            key={product.id}
+            path={`/products/${product.id}`}
+            element={<Product product={product} />}
+          />
+        ))}
         <Route path="*" element={<h1>404</h1>} />
       </Route>
     </Routes>

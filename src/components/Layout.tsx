@@ -1,16 +1,15 @@
 import { Outlet } from 'react-router';
-import Footer from './ui/Footer';
-import Header from './ui/Footer/Header';
+// import Footer from './ui/Footer';
+import Header from './ui/Header';
 
 export default function Layout() {
   return (
     <>
       <Header />
       <main>
-        <h1>Tesasdasdt</h1>
         <Outlet />
       </main>
-      <Footer />
+      {/* <Footer /> */}
     </>
   );
 }
