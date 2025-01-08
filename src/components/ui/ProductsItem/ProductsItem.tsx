@@ -5,6 +5,11 @@ import { Product } from '../../../types';
 import DeleteOutlineIcon from '@mui/icons-material/DeleteOutline';
 import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
 import { useState } from 'react';
+import { useDispatch } from 'react-redux';
+import {
+  deleteProduct,
+  toggleFavorite,
+} from '../../../features/products/productsSlice';
 
 interface ProductsItemProps {
   product: Product;
@@ -12,11 +17,8 @@ interface ProductsItemProps {
   onFavoriteToggle: (id: number, favorites: boolean) => void;
 }
 
-export default function ProductsItem({
-  product,
-  onDelete,
-  onFavoriteToggle,
-}: ProductsItemProps) {
+export default function ProductsItem({ product }: ProductsItemProps) {
+  const dispatch = useDispatch();
   const [favorite, setFavorite] = useState<boolean>(product.favorites);
 
   const handleFavoriteClick = (event: React.MouseEvent) => {
@@ -24,13 +26,13 @@ export default function ProductsItem({
     event.preventDefault();
     const newFavoriteStatus = !favorite;
     setFavorite(newFavoriteStatus);
-    onFavoriteToggle(product.id, newFavoriteStatus);
+    dispatch(toggleFavorite({ id: product.id, favorites: newFavoriteStatus }));
   };
 
   const handleDeleteClick = (event: React.MouseEvent) => {
     event.stopPropagation();
     event.preventDefault();
-    onDelete(product.id);
+    dispatch(deleteProduct(product.id));
   };
 
   const truncateText = (text: string, maxLength: number) => {
@@ -47,7 +49,6 @@ export default function ProductsItem({
         <img
           className={styles.item__img}
           src={product.img}
-          height="250px"
           alt="фото карточки"
         />
         <p className={styles.item__description}>

@@ -1,37 +1,36 @@
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
 import styles from './Products.module.scss';
 import ProductsItem from '../../ui/ProductsItem';
-import { Product } from '../../../types';
 import CreateProductButton from '../../ui/CreateProductButton';
+import {
+  deleteProduct,
+  toggleFavorite,
+} from '../../../features/products/productsSlice';
+import { RootState } from '../../../app/store';
 
-interface ProductsProps {
-  products: Product[];
-}
+interface ProductsProps {}
 
-export default function Products({ products }: ProductsProps) {
+export default function Products({}: ProductsProps) {
+  const dispatch = useDispatch();
+  const products = useSelector((state: RootState) => state.products.value);
   const [filter, setFilter] = useState<string>('Все');
-  const [productList, setProductList] = useState<Product[]>(products);
-
-  useEffect(() => {
-    setProductList(products);
-  }, [products]);
 
   const handleDeleteProduct = (id: number) => {
-    setProductList(productList.filter((product) => product.id !== id));
+    dispatch(deleteProduct(id));
   };
 
   const handleFavoriteToggle = (id: number, favorites: boolean) => {
-    setProductList(
-      productList.map((product) =>
-        product.id === id ? { ...product, favorites } : product,
-      ),
-    );
+    dispatch(toggleFavorite({ id, favorites }));
   };
 
   const filteredProducts =
     filter === 'Избранные'
-      ? productList.filter((product) => product.favorites)
-      : productList;
+      ? products.filter((product) => product.favorites)
+      : products;
+
+  // Reverse the order of filteredProducts
+  const reversedFilteredProducts = [...filteredProducts].reverse();
 
   return (
     <>
@@ -63,7 +62,7 @@ export default function Products({ products }: ProductsProps) {
         </div>
 
         <ol className={styles.products__list}>
-          {filteredProducts.map((product) => (
+          {reversedFilteredProducts.map((product) => (
             <ProductsItem
               key={product.id}
               product={product}

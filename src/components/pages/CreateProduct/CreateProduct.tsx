@@ -1,10 +1,14 @@
 import { useState, ChangeEvent } from 'react';
 import styles from './CreateProduct.module.scss';
 import Back from '../../ui/Back';
+import { useDispatch } from 'react-redux';
+import { addProduct } from '../../../features/products/productsSlice';
+import { Product } from '../../../types';
 
 interface CreateProductProps {}
 
 const CreateProduct: React.FC<CreateProductProps> = () => {
+  const dispatch = useDispatch();
   const [selectedImage, setSelectedImage] = useState<string | null>(null);
   const [title, setTitle] = useState<string>('');
   const [description, setDescription] = useState<string>('');
@@ -78,7 +82,18 @@ const CreateProduct: React.FC<CreateProductProps> = () => {
     if (hasErrors) {
       alert('Пожалуйста, исправьте ошибки в форме.');
     } else {
+      const newProduct: Product = {
+        id: Date.now(),
+        title,
+        description,
+        img: selectedImage!,
+        favorites: false,
+      };
+      dispatch(addProduct(newProduct));
       alert('Карточка создана успешно!');
+      setSelectedImage(null);
+      setTitle('');
+      setDescription('');
     }
   };
 
