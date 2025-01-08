@@ -1,0 +1,110 @@
+.createProduct {
+  width: 40%;
+  margin: 30px auto;
+  padding: 20px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  background-color: #fff;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  &__title {
+    margin-bottom: 20px;
+    font-size: 24px;
+    text-align: center;
+  }
+
+  &__form {
+    margin-bottom: 20px;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: start;
+  }
+
+  &__titleInput {
+    width: 70%;
+    border: 1px solid #ccc;
+    padding: 10px;
+    font-size: 16px;
+    border-radius: 4px;
+
+    &.error {
+      border-color: #e74c3c;
+    }
+  }
+
+  &__descriptionInput {
+    height: 200px;
+    width: 70%;
+    resize: vertical;
+    border: 1px solid #ccc;
+    padding: 10px;
+    font-size: 16px;
+    border-radius: 4px;
+
+    &.error {
+      border-color: #e74c3c;
+    }
+  }
+
+  &__label {
+    display: block;
+    margin-bottom: 8px;
+    font-size: 16px;
+    font-weight: bold;
+  }
+
+  &__img {
+    margin: 10px 0 10px 0;
+  }
+
+  &__imgInput {
+    display: none;
+  }
+
+  &__uploadButton {
+    background-color: #1c85c6;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 4px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    margin: 10px 0;
+
+    &:hover {
+      background-color: #166bb3;
+    }
+  }
+
+  &__createButton {
+    background-color: #4caf50;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 4px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    margin-top: 10px;
+
+    &:hover {
+      background-color: #45a049;
+    }
+  }
+
+  &__error {
+    color: #e74c3c;
+    font-size: 14px;
+    margin-top: 10px;
+  }
+  &__errorImg {
+    color: #e74c3c;
+    font-size: 14px;
+    margin-bottom: 5px;
+  }
+}

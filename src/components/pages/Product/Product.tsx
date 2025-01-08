@@ -1,13 +1,20 @@
 import { Product as ProductType } from '../../../types';
-
+import styles from './Product.module.scss';
+import Back from '../../ui/Back';
 interface ProductProps {
   product: ProductType;
 }
 export default function Product({ product }: ProductProps) {
   return (
-    <div>
-      <p>{product.title}</p>
-      <img src={product.img} height="250px" alt="фото карточки" />
+    <div className={styles.product}>
+      <Back />
+      <h2 className={styles.product__title}>{product.title}</h2>
+      <img
+        className={styles.product__img}
+        src={product.img}
+        alt="фото карточки"
+      />
+      <p>{product.description}</p>
     </div>
   );
 }

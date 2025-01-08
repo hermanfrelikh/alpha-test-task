@@ -1,4 +1,9 @@
+import { Link } from 'react-router';
 import styles from './CreateProductButton.module.scss';
 export default function CreateProductButton() {
-  return <button className={styles.button}>+</button>;
+  return (
+    <Link to="/create-product">
+      <button className={styles.button}>+</button>
+    </Link>
+  );
 }

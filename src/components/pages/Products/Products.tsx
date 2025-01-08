@@ -20,6 +20,14 @@ export default function Products({ products }: ProductsProps) {
     setProductList(productList.filter((product) => product.id !== id));
   };
 
+  const handleFavoriteToggle = (id: number, favorites: boolean) => {
+    setProductList(
+      productList.map((product) =>
+        product.id === id ? { ...product, favorites } : product,
+      ),
+    );
+  };
+
   const filteredProducts =
     filter === 'Избранные'
       ? productList.filter((product) => product.favorites)
@@ -60,6 +68,7 @@ export default function Products({ products }: ProductsProps) {
               key={product.id}
               product={product}
               onDelete={handleDeleteProduct}
+              onFavoriteToggle={handleFavoriteToggle}
             />
           ))}
         </ol>

@@ -9,16 +9,22 @@ import { useState } from 'react';
 interface ProductsItemProps {
   product: Product;
   onDelete: (id: number) => void;
+  onFavoriteToggle: (id: number, favorites: boolean) => void;
 }
 
-export default function ProductsItem({ product, onDelete }: ProductsItemProps) {
+export default function ProductsItem({
+  product,
+  onDelete,
+  onFavoriteToggle,
+}: ProductsItemProps) {
   const [favorite, setFavorite] = useState<boolean>(product.favorites);
 
   const handleFavoriteClick = (event: React.MouseEvent) => {
     event.stopPropagation();
     event.preventDefault();
-    setFavorite(!favorite);
-    product.favorites = !favorite; // Обновляем состояние избранного в объекте продукта
+    const newFavoriteStatus = !favorite;
+    setFavorite(newFavoriteStatus);
+    onFavoriteToggle(product.id, newFavoriteStatus);
   };
 
   const handleDeleteClick = (event: React.MouseEvent) => {
@@ -27,10 +33,17 @@ export default function ProductsItem({ product, onDelete }: ProductsItemProps) {
     onDelete(product.id);
   };
 
+  const truncateText = (text: string, maxLength: number) => {
+    if (text.length > maxLength) {
+      return text.substring(0, maxLength - 3) + '...';
+    }
+    return text;
+  };
+
   return (
     <Link className={styles.item__link} to={`/products/${product.id}`}>
       <li className={styles.item}>
-        <p className={styles.item__title}>{product.title}</p>
+        <p className={styles.item__title}>{truncateText(product.title, 25)}</p>
         <img
           className={styles.item__img}
           src={product.img}
@@ -38,7 +51,7 @@ export default function ProductsItem({ product, onDelete }: ProductsItemProps) {
           alt="фото карточки"
         />
         <p className={styles.item__description}>
-          Таким образом консультация с широким активом обеспечивает широкому...
+          {truncateText(product.description, 80)}
         </p>
         <div className={styles.item__icons}>
           {favorite === false ? (

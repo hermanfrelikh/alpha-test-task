@@ -2,7 +2,7 @@
   border: 1px black solid;
   padding: 10px;
   width: 300px;
-
+  border-radius: 15px;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -23,6 +23,8 @@
   }
   &__description {
     margin-bottom: 10px;
+    height: 40px;
+    width: 290px;
   }
   &__icons {
     color: black;

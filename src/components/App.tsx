@@ -3,6 +3,7 @@ import Products from './pages/Products';
 import Product from './pages/Product';
 import Layout from './Layout';
 import { useEffect, useState } from 'react';
+import CreateProduct from './pages/CreateProduct';
 
 interface Product {
   id: number;
@@ -34,7 +35,7 @@ function App() {
           id: movie.filmId,
           title: movie.nameRu || movie.nameEn || 'Untitled',
           description:
-            'Lorem ipsum dolor sit amet, consectetur adipiscing elit.',
+            'Lorem ipsum dolor sit amet, consectetur adipiscing elit.Lorem ipsum dolor sit amet, consectetur adipiscing elit.',
           img: movie.posterUrl,
           favorites: false,
         }));
@@ -63,6 +64,7 @@ function App() {
           />
         ))}
         <Route path="*" element={<h1>404</h1>} />
+        <Route path="/create-product" element={<CreateProduct />} />
       </Route>
     </Routes>
   );
