@@ -52,7 +52,7 @@ export default function ProductsItem({ product }: ProductsItemProps) {
           alt="фото карточки"
         />
         <p className={styles.item__description}>
-          {truncateText(product.description, 80)}
+          {truncateText(product.description, 65)}
         </p>
         <div className={styles.item__icons}>
           {favorite === false ? (

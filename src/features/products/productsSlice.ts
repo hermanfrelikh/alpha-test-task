@@ -30,7 +30,7 @@ export const fetchProducts = createAsyncThunk<Product[]>(
       id: movie.filmId,
       title: movie.nameRu || movie.nameEn || 'Untitled',
       description:
-        'Lorem ipsum dolor sit amet, consectetur adipiscing elit.Lorem ipsum dolor sit amet, consectetur adipiscing elit.',
+        'У этой карточки нет описание, но вы можете создать свою и добавить его ^_^ У этой карточки нет описание, но вы можете создать свою и добавить его ^_^ У этой карточки нет описание, но вы можете создать свою и добавить его ^_^ У этой карточки нет описание, но вы можете создать свою и добавить его ^_^',
       img: movie.posterUrl,
       favorites: false,
     }));

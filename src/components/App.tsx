@@ -6,10 +6,10 @@ import { useEffect } from 'react';
 import CreateProduct from './pages/CreateProduct';
 import { useDispatch, useSelector } from 'react-redux';
 import { fetchProducts } from '../features/products/productsSlice';
-import { RootState } from '../app/store';
+import { AppDispatch, RootState } from '../app/store';
 
 function App() {
-  const dispatch = useDispatch();
+  const dispatch = useDispatch<AppDispatch>();
   const products = useSelector((state: RootState) => state.products.value);
 
   useEffect(() => {
